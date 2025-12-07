@@ -3,6 +3,7 @@
 #endif
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include "Queue.h"
 
 #define BUFFER_SIZE 12
@@ -10,11 +11,27 @@
 
 int main()
 {
+	
+	char fileName[FILE_NAME_BUFFER];
+	printf("Enter an exisiting file name: ");
+
+	if (scanf("%s", fileName) != 1)
+	{
+		printf("Error while reading filename!\n");
+		return 1;
+	}
+	size_t len = strlen(fileName);
+	if (len < 4 || strcmp(fileName + len - 4, ".csv") != 0)
+	{
+		printf("Error! Accepted file extension: .csv\n");
+		return 1;
+	}
+	
+
+
+
 	FILE* input;
 	FILE* output;
-	char fileName[FILE_NAME_BUFFER];
-	scanf("Enter an exisiting file name: %s", fileName);
-	input = fopen("./triangle_wave.csv", "r");
 	Row row;
 	Queue queue;
 
@@ -23,7 +40,7 @@ int main()
 	
 	char line[BUFFER_SIZE];
 
-	
+	input = fopen(fileName, "r");
 
 	if (input != NULL)
 	{
